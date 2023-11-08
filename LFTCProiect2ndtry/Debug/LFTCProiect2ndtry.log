@@ -1,0 +1,8 @@
+﻿  parser.c
+d:\lftcproiect\lftcproiect2ndtry\lftcproiect2ndtry\parser.c(35): warning C4013: 'defVar' undefined; assuming extern returning int
+d:\lftcproiect\lftcproiect2ndtry\lftcproiect2ndtry\parser.c(44): warning C4013: 'defFunc' undefined; assuming extern returning int
+d:\lftcproiect\lftcproiect2ndtry\lftcproiect2ndtry\parser.c(45): warning C4013: 'block' undefined; assuming extern returning int
+parser.obj : error LNK2019: unresolved external symbol _defVar referenced in function _program
+parser.obj : error LNK2019: unresolved external symbol _defFunc referenced in function _program
+parser.obj : error LNK2019: unresolved external symbol _block referenced in function _program
+D:\LFTCProiect\LFTCProiect2ndtry\Debug\LFTCProiect2ndtry.exe : fatal error LNK1120: 3 unresolved externals

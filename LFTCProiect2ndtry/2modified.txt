@@ -1,0 +1,2 @@
+tmp=
+==,int float double var if function while end return + - * / && || < , : ; ( ) i = 1 12 34 12.3
