@@ -4,7 +4,8 @@
 #include <string.h>
 #include "lexer.h"
 #include "utils.h"
-#include <float.h>
+#include "float.h"
+#include "lexicaltokensenum.h"
 
 //tema noastra e sa facem mai c9omolet cazurile din tokenize si sa facem si showtoken
 
@@ -437,14 +438,14 @@ const char* enumNames[COUNTER_ENUM] = {//inutil
 	"FINISH"
 };
 
-const char* enumLabels[COUNTER_ENUM] = {
-		"ID",
-		"TYPE_INT", "TYPE_REAL", "TYPE_STR", "RETURN", "END", "WHILE", "ELSE", "IF", "FUNCTION", "VAR",
-		"COMMA", "FINISH", "COLON", "SEMICOLON", "LPAR", "RPAR",
-		"ASSIGN", "EQUAL", "ADD", "SUB", "MUL", "DIV", "AND", "OR", "NOT", "NOTEQ", "LESS", "GREATER", "GREATEREQ",
-		"INT", "REAL", "STR",
-		"SPACE", "COMMENT", "TAB"
-};
+//const char* enumLabels[COUNTER_ENUM] = {
+//		"ID",
+//		"TYPE_INT", "TYPE_REAL", "TYPE_STR", "RETURN", "END", "WHILE", "ELSE", "IF", "FUNCTION", "VAR",
+//		"COMMA", "FINISH", "COLON", "SEMICOLON", "LPAR", "RPAR",
+//		"ASSIGN", "EQUAL", "ADD", "SUB", "MUL", "DIV", "AND", "OR", "NOT", "NOTEQ", "LESS", "GREATER", "GREATEREQ",
+//		"INT", "REAL", "STR",
+//		"SPACE", "COMMENT", "TAB"
+//};
 
 void showTokens() {
 	enum Tokens myToken;
