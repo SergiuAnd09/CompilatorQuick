@@ -9,12 +9,12 @@
 int main()
 {
 	//faza de analiza lexicala, ne da lista de atomi
-	char *inbuf = loadFile("sir.txt");
+	char *inbuf = loadFile("sirtestareparser.txt");
 	tokenize(inbuf);
 	showTokens();
-	free(inbuf);
+	//free(inbuf);
 	//incepe aici faza de analiza sintactica
-	//parse();
-
+	parse();
+	free(inbuf);
 	return 0;
 }
