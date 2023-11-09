@@ -11,8 +11,17 @@ enum Tokens{
 	//constante
 	,INT, REAL, STR//3
 	//spatii
-	,SPACE, COMMENT, TAB, COUNTER_ENUM//4
+	,SPACE, COMMENT, TAB, COUNTER_ENUM//4 //COUNTER_ENUM e pus sa zica cate elemente sunt in enumerare
 };
+
+//const char* enumLabels[COUNTER_ENUM] = {
+//		"ID",
+//		"TYPE_INT", "TYPE_REAL", "TYPE_STR", "RETURN", "END", "WHILE", "ELSE", "IF", "FUNCTION", "VAR",
+//		"COMMA", "FINISH", "COLON", "SEMICOLON", "LPAR", "RPAR",
+//		"ASSIGN", "EQUAL", "ADD", "SUB", "MUL", "DIV", "AND", "OR", "NOT", "NOTEQ", "LESS", "GREATER", "GREATEREQ",
+//		"INT", "REAL", "STR",
+//		"SPACE", "COMMENT", "TAB"
+//};
 
 #define MAX_STR		127
 
