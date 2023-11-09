@@ -11,7 +11,7 @@ Token *consumed;	// the last consumed token
 bool defVar();
 bool defFunc();
 bool block();
-int baseType();
+bool baseType();
 
 // same as err, but also prints the line of the current token
  void tkerr(const char *fmt,...){ //asta nu trebuie explicata, ea afiseaza error in line si afiseaza linia odata
@@ -38,7 +38,7 @@ bool consume(int code){
 	printf("\nAvem urmatorul token lexical inainte de iful din consume: %s cu valoare iterator: %d\n", labels[tokens[iTk].code], iTk);
 	if(tokens[iTk].code==code){
 		consumed=&tokens[iTk++];//se tine minte adresa atomului curent, se trece apoi la urmatorul token, astfel
-		printf("\nConsumed in consume() este : %d cu token: %s\n", consumed->code, labels[consumed->code]);							//consumand atomul curent
+		printf("\CONSUMED TOKEN IN consume() ESTE: %s cu iterator:%d\n", labels[consumed->code], iTk);							//consumand atomul curent
 		return true;
 		}
 	return false;
@@ -56,8 +56,8 @@ bool program(){//implementare regula program
 						//mam acest finish, da true functia si ii da mai departe, daca nu e true ci fals
 						//daca avem de ex alt atom, atunci iteratorul ramane pe pozitia unde era
 						//deci in cazul asta daca am consumat finish
-		else if(defFunc()){}
-		else if(block()){}
+		//else if(defFunc()){}
+		//else if(block()){}
 		else break;
 		}
 
@@ -80,52 +80,52 @@ void parse(){
 	}
 
 bool defVar() {
+	int start = iTk;
 	if (consume(VAR)) {
 		printf("\nAm fost in var in defVar\n");
 		if (consume(ID)) {
 			printf("\nAm fost in id in defVar\n");
 			if (consume(COLON)) {
 				printf("\nAm fost in colon in defVar\n");
-				if (consume(baseType())) {
+				if (baseType()) {
 					printf("\nAm fost in baseType in defVar\n");
 					if (consume(SEMICOLON)) { 
 						printf("\nAm fost in semicolon in defVar\n");
+						return true;
 					}
 				}
 			}
 		}
 	}
+	iTk = start;
+	return false;
 }
 
 bool defFunc() {
-	if (consume(VAR)) {
-
-	}
+	printf("\nAm trecut prin defFunc\n");
 }
 
 bool block() {
-	if (consume(VAR)) {
-
-	}
+	printf("\nAm trecut prin block\n");
 }
 
-int baseType() {
+bool baseType() {
 
 	if (consume(TYPE_INT)) {
-		//iTk--;
+		
 		printf("\nAm fost in int in baseType si iTk e %d cu consumed %s\n", iTk, labels[consumed->code]);
-		return 1;
+		return true;
 	}
 	else if (consume(TYPE_REAL)) {
 		printf("\nAm fost in real;\n");
-		return 2;
+		return true;
 
 	}
 	else if (consume(TYPE_STR)) {
 		printf("\nAm fost in str;\n");
-		return 3;
+		return true;
 	}
 	else {
-		return 0;
+		return false;
 	}
 }
