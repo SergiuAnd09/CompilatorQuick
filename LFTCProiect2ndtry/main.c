@@ -5,13 +5,15 @@
 #include "lexer.h"
 #include "utils.h"
 #include "parser.h"
+#include "ad.h"
+#include "at.h"
 
 int main()
 {
 	//faza de analiza lexicala, ne da lista de atomi
-	char *inbuf = loadFile("sirtestareparser.txt");
+	char *inbuf = loadFile("if.txt");
 	tokenize(inbuf);
-	showTokens();
+	//showTokens();
 	//free(inbuf);
 	//incepe aici faza de analiza sintactica
 	parse();

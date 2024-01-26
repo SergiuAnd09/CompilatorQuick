@@ -6,16 +6,14 @@
 #include "utils.h"
 #include "float.h"
 #include "lexicaltokensenum.h"
-
 //tema noastra e sa facem mai c9omolet cazurile din tokenize si sa facem si showtoken
 
 Token tokens[MAX_TOKENS];
 int nTokens;
-
 int line = 1;		// the current line in the input file
-
 // adds a token to the end of the tokens list and returns it
 // sets its code and line
+
 Token *addTk(int code) {
 	if (nTokens == MAX_TOKENS)err("too many tokens");
 	Token *tk = &tokens[nTokens];
@@ -32,61 +30,6 @@ char *copyn(char *dst, const char *begin, const char *end) {
 	while (begin != end)*p++ = *begin++;
 	*p = '\0';
 	return dst;
-}
-
-int againpeInteger(char sir[100])//nu e folosit deocamdata
-{
-	int i = 0;
-	while (sir[i] != '\0')
-	{
-		if (isdigit(sir[i]))
-		{
-
-		}
-		else
-		{
-			return 0;
-		}
-		i++;
-	}
-
-	return 1;
-}
-
-int againlaagainpefloat(char sir[100]) //nu e folosit deocamdata
-{
-	int i = 0;
-	while (sir[i] != '\0')
-	{
-		if (isdigit(sir[i]) || sir[i] == '.')
-		{
-
-		}
-		else
-		{
-			return 0;
-		}
-		i++;
-	}
-
-	return 1;
-}
-
-int isInteger(int number) { //nu e folosit deocamdata
-	// Check if the absolute difference between the original number and its integer version is very close to zero
-	return fabs(number - (int)number) < DBL_EPSILON;
-}
-
-int isNumberIntegerr(char *sir) {//nu e folosit deocamdata
-	if (strlen(sir)>1 || strlen(sir)==0) {
-		return 0;
-	}
-	else if (isdigit(sir)) {
-		return 1;
-	}
-
-	
-	
 }
 
 int isNumberInteger(char *sir) { //FOLOSIT DEOCAMDATA
@@ -152,54 +95,16 @@ int isSomeNumber(char *sir) {
 }
 //CE E MAI SUS E FOLOSIT
 
-
-//int isFloatingPoint(char *str) {
-//	char *endptr;
-//	double value = strtod(str, &endptr);
-//	
-//
-//	// Check if the conversion was successful
-//	if (endptr == str) {
-//		return 0; // Not a valid floating-point number
-//	}
-//
-//	// Check if there are any non-whitespace characters left in the string
-//	while (*endptr != '\0') {
-//		if (!isspace(*endptr)) {
-//			return 0; // Not a valid floating-point number
-//		}
-//		endptr++;
-//	}
-//
-//	return 1; // Valid floating-point number
-//}
-
-int isFloatingPoint(char *sir) {//nu e folosita deocamdata
-
-	int valoare = 1;
-	int i = 0;
-	while (*(sir + i) != '\0') {
-		if (*(sir + i) == '.' || isdigit(*(sir+i))) {
-			
-		}
-		else {
-			valoare = 0;
-		}
-	}
-	return valoare;
-}
-
 void tokenize(const char *pch) { //aici o sa ne scriem noi toata functia la ce avem de lucru la acest lab
 	//pch e present character din file sau textul dat
+
 	int prima = 1;//pentru prima " a unui sir, la a doua ia valoarea 2
 	int numarSchimbat = 0;//pentru functia isNumberInteger
 	const char *start;//startul textului ce se analizeaza
 	int contor=1;//pentru sir
-	int contoras=0;//pentru comentarii, NEFOLOSIT 
-	const char *inceput;//in locul lui am facut aritmetica pe pointeri de la stringuri
 	Token *tk;//pentru afisari si assignari
 	char buf[MAX_STR + 1];//initial de folosit la strings, renuntat la idee
-	char buffer[MAX_STR + 1];//nefolosit, folosit pana la urma doar buf si la strings
+
 	for (;;) {
 		switch (*pch) {
 		case ' ':case '\t':pch++; break;//se merge in cascada prin space si tab si se merge mai departe 
@@ -266,10 +171,6 @@ void tokenize(const char *pch) { //aici o sa ne scriem noi toata functia la ce a
 			addTk(DIV);
 			pch++;
 			break;
-			/*case '&&':
-				addTk(AND);
-				pch++;
-				break;*/
 		case '&':
 			if (pch[1] == '&') {
 				addTk(AND);
@@ -309,52 +210,23 @@ void tokenize(const char *pch) { //aici o sa ne scriem noi toata functia la ce a
 			addTk(RPAR);
 			pch++;
 			break;
-		/*case '"': if (prima == 2) {
-			;
-		}*/
-				 // break;
-		/*case '"': 
-
-			break;*/
-			//pch = pch - contoras;
-			//printf
 		default:
-			if (isalpha(*pch) || *pch == '_' || isdigit(*pch)  || *pch == '"') { //pt // ||isdigit(*pch) adaugat, || *pch=='.' //e de primul caracter, ce poate sa fie ca sa fie luat in considerare
-
-
+			if (isalpha(*pch) || *pch == '_' || isdigit(*pch)  || *pch == '"') { //e de primul caracter, ce poate sa fie ca sa fie luat in considerare
 
 				if (*pch == '"' && prima==1) {
 					prima = 2;//aici daca a gasit o ghilimea ia val 2, adica valoarea ca sa nu mai vina aici
-					//for (start = pch++; isalnum(*pch) || *pch == '_' || *pch==' '|| *pch=='\t'; pch++,contor++) {}//aici se afla marginile textului ce va fi pus intr-o unitate manevrabila
-					for (start = pch++; *pch != '"'; pch++, contor++) { if (*pch == '\0') err("\nEnd of file error."); }
+					for (start = pch++; *pch != '"'; pch++, contor++) { if (*pch == '\0') err("\nEnd of file error."); }//aici se afla marginile textului ce va fi pus intr-o unitate manevrabila
 					char *text = copyn(buf, start, pch);
-					//printf("\nCat e contoru: %d si textu %s si caracteru vietii:%c\n", contor, text, *(pch));
-					//if (*pch=='"') {
-					//	//printf("\nadi\n");
-					//	/*char *text = copyn(buf, start, (pch+1));
-					//	printf("\nCat e contoru: %d si textu %s\n", contor, text);*/
-					//}
-					
-					
 				}
 				else if (*pch == '"' && prima == 2) {
 					prima = 1;
 					char *text = copyn(buf, (pch-contor), (pch));//aici
 					pch++;
-					//printf("\nCat e contoru: %d si textu %s\n", contor, text);//1
 					tk = addTk(STR);
 					strcpy(tk->text, text);
 					contor = 0;
 				}
-
-
 				else {
-					//prima = 1;//aici reia valoarea de 1 pentru ca poate urma un alt sir
-				// char *c = pch; *c = *pch;
-				//printf("\nC e egal cu : %c\n", *c);
-				//for (inceput = c++; *c != '"' && *c!=EOF &&*c!='\0'; c++) {  }
-				//char *sir = copyn(buffer, inceput, c);//aici punem sirul 
-				//printf("\nSirul pus in *sir este %s: ", *sir);
 				for (start = pch++; isalnum(*pch) || *pch == '_' || *pch == '.'; pch++) {}//aici se afla marginile textului ce va fi pus intr-o unitate manevrabila
 				char *text = copyn(buf, start, pch); //aici se pune textul intr-o unitate manevrabila
 				//de aci incolo se vede unde se incadreaza textul facut mai sus
@@ -387,24 +259,6 @@ void tokenize(const char *pch) { //aici o sa ne scriem noi toata functia la ce a
 				else if (strcmp(text, "return") == 0) {
 					addTk(RETURN);
 				}
-				/*else if (isInteger(isdigit(atoi(text))) {
-					addTk(INT);
-				}*//*else if(isNumberInteger(text)){
-					addTk(INT);*/
-
-				//else if (isNumberInteger(text)) {//daca nu merge inapoi la isNumberInteger(text)
-				//	//printf("\nAvem urmatorul text la integer: %s\n", text);
-				//	tk = addTk(INT);
-				//	tk->i = atoi(text);
-
-				//}
-				//else if (isFloatingPoint(text)) {//aici am comentat inainte de marea revelatie cu float
-					//tk = addTk(REAL);
-					//tk->r = atof(text);
-					//printf("\nAvem urmatorul text la real: %s\n", text);
-				//}//s-ar putea sa trebuiasca un if else compus care sa acopere odata int si odata real,
-				//ca sa se poata testa ambele cazuri caci ambele au in compozitie un integer la inceput
-
 				else if (isSomeNumber(text)) {
 					if (isNumberInteger(text)) {
 						tk = addTk(INT);
@@ -416,10 +270,6 @@ void tokenize(const char *pch) { //aici o sa ne scriem noi toata functia la ce a
 					}
 
 				}
-
-			/*else if (strcmp(text, "long double") == 0) {
-				addTk(TYPE_REAL);
-			}*/ //nu mai fac ca trebe cautat si inainte de double dinainte sa fie conditia sa nu aiba "long" inainte
 				else {
 					tk = addTk(ID);
 					strcpy(tk->text, text);
@@ -430,22 +280,6 @@ void tokenize(const char *pch) { //aici o sa ne scriem noi toata functia la ce a
 		}
 	}
 }
-
-const char* enumNames[COUNTER_ENUM] = {//inutil
-	"ID",
-	"FUNCTION",
-	"INT",
-	"FINISH"
-};
-
-//const char* enumLabels[COUNTER_ENUM] = {
-//		"ID",
-//		"TYPE_INT", "TYPE_REAL", "TYPE_STR", "RETURN", "END", "WHILE", "ELSE", "IF", "FUNCTION", "VAR",
-//		"COMMA", "FINISH", "COLON", "SEMICOLON", "LPAR", "RPAR",
-//		"ASSIGN", "EQUAL", "ADD", "SUB", "MUL", "DIV", "AND", "OR", "NOT", "NOTEQ", "LESS", "GREATER", "GREATEREQ",
-//		"INT", "REAL", "STR",
-//		"SPACE", "COMMENT", "TAB"
-//};
 
 void showTokens() {
 	enum Tokens myToken;
